@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TaskFlow</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .comentario {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .comentario .cabeza,
+    .respuesta .cabeza {
+      display: flex;
+      align-items: center;
+    }
+    .perfil {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .autor {
+      font-weight: bold;
+      color: #333;
+    }
+    .contenido {
+      margin-top: 8px;
+      color: #444;
+    }
+    .fecha {
+      font-size: 0.85em;
+      color: #777;
+      margin-top: 5px;
+    }
+    .respuesta {
+      margin-top: 15px;
+      margin-left: 40px;
+      border-left: 2px solid #ddd;
+      padding-left: 15px;
+      background: #fafafa;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Comentarios</h1>
+  <div id="comentarios-container"></div>
+
+  <script>
+    const comentarios = [
+      {
+        autor: "Ana de Armas",
+        imagen: "https://i.pravatar.cc/40?img=5",
+        contenido: "Este es el comentario principal de Ana.",
+        fecha: "2025-04-16 10:31",
+        respuestas: [
+          {
+            autor: "Parrita",
+            imagen: "https://i.pravatar.cc/40?img=15",
+            contenido: "Estoy de acuerdo con Ana.",
+            fecha: "2025-04-16 10:54"
+          }
+        ]
+      },
+      {
+        autor: "Jefe",
+        imagen: "https://i.pravatar.cc/40?img=3",
+        contenido: "Revisé esto y está listo.",
+        fecha: "2025-04-16 12:05",
+        respuestas: []
+      }
+    ];
+
+    const contenedor = document.getElementById("comentarios-container");
+
+    comentarios.forEach(c => {
+      const divComentario = document.createElement("div");
+      divComentario.className = "comentario";
+
+      divComentario.innerHTML = `
+        <div class="cabeza">
+          <img src="${c.imagen}" class="perfil" alt="Imagen de ${c.autor}" />
+          <span class="autor">${c.autor}</span>
+        </div>
+        <div class="contenido">${c.contenido}</div>
+        <div class="fecha">${c.fecha}</div>
+      `;
+
+      // Respuestas
+      c.respuestas.forEach(r => {
+        const divRespuesta = document.createElement("div");
+        divRespuesta.className = "respuesta";
+        divRespuesta.innerHTML = `
+          <div class="cabeza">
+            <img src="${r.imagen}" class="perfil" alt="Imagen de ${r.autor}" />
+            <span class="autor">${r.autor}</span>
+          </div>
+          <div class="contenido">${r.contenido}</div>
+          <div class="fecha">${r.fecha}</div>
+        `;
+        divComentario.appendChild(divRespuesta);
+      });
+
+      contenedor.appendChild(divComentario);
+    });
+  </script>
+</body>
+</html>
